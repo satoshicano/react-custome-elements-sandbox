@@ -11,7 +11,7 @@ module.exports = env => {
       "components/date-picker": root("components/date-picker/index.js")
     },
     output: {
-      path: root("public"),
+      path: root("docs"),
       filename: prod ? "[name].[chunkhash].js" : "[name].js"
     },
     resolve: {
