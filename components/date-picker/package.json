@@ -1,0 +1,12 @@
+{
+  "name": "date-picker",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "react": "16.8.6",
+    "react-datepicker": "2.3.0",
+    "react-dom": "16.8.6"
+  }
+}
