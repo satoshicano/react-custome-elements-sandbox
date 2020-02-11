@@ -8,7 +8,7 @@ module.exports = env => {
   return {
     entry: {
       main: root("src/index.js"),
-      "components/date-picker": root("components/date-picker/index.js")
+      "components/date-picker": root("components/date-picker/src/index.js")
     },
     output: {
       path: root("docs"),
