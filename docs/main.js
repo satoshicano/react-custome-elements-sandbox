@@ -23325,6 +23325,10 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+function listener(key, callback) {
+  document.getElementsByTagName('body')[0].addEventListener(key, callback);
+}
+
 var App =
 /*#__PURE__*/
 function (_React$Component) {
@@ -23336,20 +23340,38 @@ function (_React$Component) {
     _classCallCheck(this, App);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(App).call(this, props));
-    console.log(react__WEBPACK_IMPORTED_MODULE_0___default.a.version);
+    _this.state = {
+      startDate: new Date()
+    };
     return _this;
   }
 
   _createClass(App, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      listener('onChangeDate', function (e) {
+        console.log("onChangeDate", e);
+
+        _this2.setState({
+          startDate: e.detail
+        });
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("date-picker", null));
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("date-picker", {
+        selected: this.state.startDate.toString()
+      });
     }
   }]);
 
   return App;
 }(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
 
+console.log("outside:", react__WEBPACK_IMPORTED_MODULE_0___default.a.version);
 Object(react_dom__WEBPACK_IMPORTED_MODULE_1__["render"])(react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(App, null), document.querySelector("#app"));
 
 /***/ })

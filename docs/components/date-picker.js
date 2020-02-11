@@ -33659,54 +33659,6 @@ if (false) {} else {
 
 /***/ }),
 
-/***/ "./components/date-picker/src/App.js":
-/*!*******************************************!*\
-  !*** ./components/date-picker/src/App.js ***!
-  \*******************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./components/date-picker/node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_datepicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-datepicker */ "./components/date-picker/node_modules/react-datepicker/es/index.js");
-/* harmony import */ var react_datepicker_dist_react_datepicker_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-datepicker/dist/react-datepicker.css */ "./components/date-picker/node_modules/react-datepicker/dist/react-datepicker.css");
-/* harmony import */ var react_datepicker_dist_react_datepicker_css__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_datepicker_dist_react_datepicker_css__WEBPACK_IMPORTED_MODULE_2__);
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
-
-
-
-var ReactDatePicker = function ReactDatePicker() {
-  console.log(react__WEBPACK_IMPORTED_MODULE_0___default.a.version);
-
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(new Date()),
-      _useState2 = _slicedToArray(_useState, 2),
-      startDate = _useState2[0],
-      setStartDate = _useState2[1];
-
-  var handleChange = function handleChange(date, _evnet) {
-    setStartDate(date);
-  };
-
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_datepicker__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    selected: startDate,
-    onChange: handleChange
-  });
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (ReactDatePicker);
-
-/***/ }),
-
 /***/ "./components/date-picker/src/index.js":
 /*!*********************************************!*\
   !*** ./components/date-picker/src/index.js ***!
@@ -33720,7 +33672,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./components/date-picker/node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _App__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./App */ "./components/date-picker/src/App.js");
+/* harmony import */ var react_datepicker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-datepicker */ "./components/date-picker/node_modules/react-datepicker/es/index.js");
+/* harmony import */ var react_datepicker_dist_react_datepicker_css__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-datepicker/dist/react-datepicker.css */ "./components/date-picker/node_modules/react-datepicker/dist/react-datepicker.css");
+/* harmony import */ var react_datepicker_dist_react_datepicker_css__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_datepicker_dist_react_datepicker_css__WEBPACK_IMPORTED_MODULE_3__);
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -33751,6 +33705,14 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 
 
 
+
+function dispatcher(key, value) {
+  var event = new CustomEvent(key, {
+    detail: value
+  });
+  document.getElementsByTagName('body')[0].dispatchEvent(event);
+}
+
 var DatePicker =
 /*#__PURE__*/
 function (_HTMLElement) {
@@ -33770,19 +33732,36 @@ function (_HTMLElement) {
   }, {
     key: "attributeChangedCallback",
     value: function attributeChangedCallback(_attrName, _old, _new) {
-      console.log("attributeChangedCallback");
+      if (_old === _new) {
+        return;
+      }
+
+      console.log("attributeChanged", _attrName);
       this.render();
     }
   }, {
     key: "render",
     value: function render() {
-      Object(react_dom__WEBPACK_IMPORTED_MODULE_0__["render"])(react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(_App__WEBPACK_IMPORTED_MODULE_2__["default"], null), this);
+      var selected = this.getAttribute('selected');
+
+      Object(react_dom__WEBPACK_IMPORTED_MODULE_0__["render"])(react__WEBPACK_IMPORTED_MODULE_1___default.a.createElement(react_datepicker__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        selected: new Date(selected),
+        onChange: function onChange(date) {
+          return dispatcher('onChangeDate', date);
+        }
+      }), this);
+    }
+  }], [{
+    key: "observedAttributes",
+    get: function get() {
+      return ["selected"];
     }
   }]);
 
   return DatePicker;
 }(_wrapNativeSuper(HTMLElement));
 
+console.log("inside:", react__WEBPACK_IMPORTED_MODULE_1___default.a.version);
 window.customElements.define("date-picker", DatePicker);
 
 /***/ }),
